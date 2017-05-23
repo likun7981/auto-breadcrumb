@@ -25,6 +25,7 @@ import breadcrumbConfig from 'auto-breadcrumb';
  *  Breadcrumb?: ReactComponent, // The Breadcrumb container, default 'ul',
  *  BreadcrumbItem?: ReactComponent, // The Breadcrumb Item, default 'li'
  * }
+ * you can see example config: https://github.com/likun7981/auto-breadcrumb/blob/master/demo/RecursivePaths.js#L6-L10
  *
  **/
 const Breadcrumbs = breadcrumbConfig(config);
