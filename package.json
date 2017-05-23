@@ -56,5 +56,8 @@
     "webpack": "^2.6.0",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-hot-middleware": "^2.18.0"
+  },
+  "dependencies": {
+    "auto-breadcrumb": "^0.9.1"
   }
 }
