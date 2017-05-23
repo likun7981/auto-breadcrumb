@@ -1,6 +1,6 @@
 {
   "name": "auto-breadcrumb",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "Auto generate breadcrumb for React-Router 4.xx",
   "main": "lib/index.js",
   "scripts": {
