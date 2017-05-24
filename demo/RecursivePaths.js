@@ -1,16 +1,12 @@
 // @flow
 import React from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
-import BreadcrumbConfig from '../src';
-
+import BreadcrumbConfig from 'auto-breadcrumb';
 const Breadcrumbs = BreadcrumbConfig({
-  staticRoutesMap: {
-    '/': 'HomePage',
-  },
   dynamicRoutesMap: {
-    '/:id': ['people', '{{id}}'],
-    '/:idd/:id': 'people{{idd}},{{id}}',
-    '/:iddd/:idd/:id': ({ iddd, idd, id }) => `people${iddd},${idd},${id}`,
+    '/:id': 'people.{{id}}',
+    '/:idd/:id': ['people..', ({ id, idd }) => `${idd},${id}`],
+    '/:iddd/:idd/:id': ({ iddd, idd, id }) => `people...${iddd},${idd},${id}`,
   },
 });
 const PEEPS = [
