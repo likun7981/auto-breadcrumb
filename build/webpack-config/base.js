@@ -15,7 +15,7 @@ module.exports = paths => {
     },
     devtool: isDev ? 'source-map' : false,
     output: {
-      filename: '[name].js',
+      filename: `[name].[${envConfig.hash}].js`,
       path: paths.root(),
       publicPath: '',
     },
