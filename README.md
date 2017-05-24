@@ -1,5 +1,6 @@
 # AutoBreadcrumb
 > Auto generate breadcrumb for React Router 4.xx  
+
 [![Build Status](https://travis-ci.org/likun7981/auto-breadcrumb.svg?branch=master)](https://travis-ci.org/likun7981/auto-breadcrumb)
 [![npm package](https://img.shields.io/npm/v/auto-breadcrumb.svg)](https://www.npmjs.com/package/auto-breadcrumb)
 
