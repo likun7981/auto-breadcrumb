@@ -10,22 +10,12 @@ type props = {
   style?: Object,
   itemStyle?: Object
 };
-const DefaultBreadcrumb = (
-  { children = '', ...otherProps } = {}
-): React$Element<any> => {
-  return React.createElement('ul', otherProps, children);
-};
-const DefaultBreadcrumbItem = (
-  { children = '', ...otherProps } = {}
-): React$Element<any> => {
-  return React.createElement('li', otherProps, children);
-};
 const Breadcrumbs = ({
   staticRoutesMap = {},
   dynamicRoutesMap = {},
   homePath = '/',
-  Breadcrumb = DefaultBreadcrumb,
-  BreadcrumbItem = DefaultBreadcrumbItem,
+  Breadcrumb = 'ul',
+  BreadcrumbItem = 'li',
 }: {
   /**
    * No param
@@ -41,17 +31,11 @@ const Breadcrumbs = ({
       | Array<string | ((Object) => string | Array<string>)>
   },
   homePath?: string,
-  Breadcrumb?: (props?: Object) => React$Element<any>,
-  BreadcrumbItem?: (props?: Object) => React$Element<any>
-}) => ({
-  pathname,
-  className = '',
-  itemClass = '',
-  style = {},
-  itemStyle = {},
-}: props) => {
-  if (!pathname) {
-    throw new Error('Breadcrumbs must set props "pathname"');
+  Breadcrumb?: any,
+  BreadcrumbItem?: any
+}) => ({ pathname, className = '', itemClass = '', style = {}, itemStyle = {} }: props) => {
+  if (typeof pathname !== 'string') {
+    throw new Error('Breadcrumbs must set string props "pathname"');
   }
   if (!staticRoutesMap[homePath]) {
     staticRoutesMap[homePath] = 'Home';
@@ -64,35 +48,34 @@ const Breadcrumbs = ({
     });
   }
   const lastIndex = paths.length - 1;
+  let BreadcrumbItems = [];
+  paths.forEach((path, index) => {
+    const names = findNameByPath(path, {
+      staticRoutesMap,
+      dynamicRoutesMap,
+    });
+    const isExact = lastIndex === index;
+    if (Array.isArray(names)) {
+      const subLastIndex = names.length - 1;
+      return (BreadcrumbItems = BreadcrumbItems.concat(
+        names.map((name, subIndex) => (
+          <BreadcrumbItem key={`${index}${subIndex}`} className={itemClass} style={itemStyle}>
+            {subLastIndex !== subIndex || isExact ? name : <Link to={path}>{name}</Link>}
+          </BreadcrumbItem>
+        ))
+      ));
+    }
+    const name = isExact ? names : <Link to={path}>{names}</Link>;
+    return (BreadcrumbItems = BreadcrumbItems.concat(
+      <BreadcrumbItem key={index} className={itemClass} style={itemStyle}>
+        {name}
+      </BreadcrumbItem>
+    ));
+  });
+  console.log(BreadcrumbItems.length);
   return (
     <Breadcrumb className={className} style={style}>
-      {paths.map((path, index) => {
-        const names = findNameByPath(path, {
-          staticRoutesMap,
-          dynamicRoutesMap,
-        });
-        const isExact = lastIndex === index;
-        if (Array.isArray(names)) {
-          const subLastIndex = names.length - 1;
-          return names.map((name, subIndex) => (
-            <BreadcrumbItem
-              key={subIndex}
-              className={itemClass}
-              style={itemStyle}
-            >
-              {subLastIndex !== subIndex || isExact
-                ? name
-                : <Link to={path}>{name}</Link>}
-            </BreadcrumbItem>
-          ));
-        }
-        const name = isExact ? names : <Link to={path}>{names}</Link>;
-        return (
-          <BreadcrumbItem key={index} className={itemClass} style={itemStyle}>
-            {name}
-          </BreadcrumbItem>
-        );
-      })}
+      {BreadcrumbItems}
     </Breadcrumb>
   );
 };

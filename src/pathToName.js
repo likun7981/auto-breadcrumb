@@ -1,7 +1,7 @@
 // @flow
 import { matchPath } from 'react-router-dom';
 const paramRegx = /{{([a-zA-Z_$][a-zA-Z0-9_$]*)}}/;
-const replaceParams = (names: string, params: Object) => {
+export const replaceParams = (names: string, params: Object) => {
   let match = paramRegx.exec(names);
   while (match) {
     names = names.replace(match[0], params[match[1]]);
@@ -12,8 +12,8 @@ const replaceParams = (names: string, params: Object) => {
 export default (
   url: string,
   {
-    staticRoutesMap,
-    dynamicRoutesMap,
+    staticRoutesMap = {},
+    dynamicRoutesMap = {},
   }: {
     /**
      * No param
@@ -43,10 +43,7 @@ export default (
         names = dynamicRoutesMap[pathname];
         if (Array.isArray(names)) {
           names = names.map(
-            name =>
-              (typeof name === 'function'
-                ? name(params)
-                : replaceParams(name, params))
+            name => (typeof name === 'function' ? name(params) : replaceParams(name, params))
           );
         } else if (typeof names === 'function') {
           names = names(params);
