@@ -47,3 +47,5 @@ propsName | type | isRequire | default | description
  style | Object | N | `{}`|The container style
  itemClass | String | N | `Empty` |The item className
  itemStyle | Object | N | `{}`|The item style
+# License 
+MIT
