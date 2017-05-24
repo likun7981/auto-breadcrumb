@@ -1,6 +1,6 @@
 # AutoBreadcrumb
 > Auto generate breadcrumb for React Router 4.xx  
-[![Build Status](https://travis-ci.org/magic-FE/magic-cli.svg?branch=master)](https://travis-ci.org/magic-FE/magic-cli)
+[![Build Status](https://travis-ci.org/likun7981/auto-breadcrumb.svg?branch=master)](https://travis-ci.org/likun7981/auto-breadcrumb)
 [![npm package][npm]][npm-url]
 [npm]: https://img.shields.io/npm/v/auto-breadcrumb.svg
 [npm-url]: https://www.npmjs.com/package/auto-breadcrumb
