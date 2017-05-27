@@ -7,6 +7,13 @@
     ],
     "plugins": [
         "transform-runtime",
-        "transform-flow-strip-types"
+        "transform-flow-strip-types",
+        [
+            "import",
+            {
+                "libraryName": "antd",
+                "style": "css"
+            }
+        ]
     ]
 }

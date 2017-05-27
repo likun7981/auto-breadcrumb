@@ -2,17 +2,20 @@
 import React from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import BreadcrumbConfig from 'auto-breadcrumb';
+import { Breadcrumb } from 'antd';
 const Breadcrumbs = BreadcrumbConfig({
+  staticRoutesMap: {
+    '/': 'Michelle',
+  },
   dynamicRoutesMap: {
-    '/:id': 'people.{{id}}',
-    '/:idd/:id': ['people..', ({ id, idd }) => `${idd},${id}`],
-    '/:iddd/:idd/:id': ({ iddd, idd, id }) => `people...${iddd},${idd},${id}`,
+    '/:id': 'Friends-{{id}}',
+    '/:idd/:id': ['Friends', ({ id, idd }) => `${idd},${id}`],
+    '/:iddd/:idd/:id': ({ iddd, idd, id }) => `Friends-${iddd},${idd},${id}`,
   },
+  Breadcrumb,
+  BreadcrumbItem: Breadcrumb.Item,
   containerProps: {
-    style: { listStyle: 'none' },
-  },
-  itemProps: {
-    style: { display: 'inline-block', marginRight: '15px' },
+    separator: '>',
   },
 });
 const PEEPS = [
@@ -26,12 +29,33 @@ const find = (id): Object => PEEPS.find(p => p.id == id) || {};
 
 const RecursiveExample = () => (
   <Router>
-    <div>
+    <div style={{ padding: '20px' }}>
       <Route
         render={({ location }) => {
-          return <Breadcrumbs pathname={location.pathname} />;
+          return (
+            <div>
+              Use <a target="__blank" href="https://github.com/likun7981/auto-breadcrumb">
+                auto-breadcrumb
+              </a> with
+              {' '}
+              <a target="__blank" href="https://ant.design/docs/react/introduce">antd</a>
+              <Breadcrumbs pathname={location.pathname} />
+              <div style={{ background: '#f6f8fa', padding: '10px' }}>
+                You can use
+                {' '}
+                <a target="__blank" href="https://github.com/likun7981/auto-breadcrumb">
+                  auto-breadcrumb
+                </a>
+                {' '}
+                with any UI Frameword
+              </div>
+            </div>
+          );
         }}
       />
+      <br />
+      <br />
+      <br />
       <Person match={{ params: { id: 0 }, url: '' }} />
     </div>
   </Router>

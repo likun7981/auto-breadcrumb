@@ -9,6 +9,7 @@ module.exports = {
     performance: {
       hints: 'error',
       maxEntrypointSize: 1500000, // 1.5M
+      maxAssetSize: 1500000, // 1.5M
     },
     stats: {
       chunkModules: false,
