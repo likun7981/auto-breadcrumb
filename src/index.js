@@ -14,6 +14,8 @@ const Breadcrumbs = ({
   staticRoutesMap = {},
   dynamicRoutesMap = {},
   homePath = '/',
+  containerProps = {},
+  itemProps = {},
   Breadcrumb = 'ul',
   BreadcrumbItem = 'li',
 }: {
@@ -31,9 +33,11 @@ const Breadcrumbs = ({
       | Array<string | ((Object) => string | Array<string>)>
   },
   homePath?: string,
+  containerProps?: Object,
+  itemProps?: Object,
   Breadcrumb?: any,
   BreadcrumbItem?: any
-}) => ({ pathname, className = '', itemClass = '', style = {}, itemStyle = {} }: props) => {
+}) => ({ pathname }: props) => {
   if (typeof pathname !== 'string') {
     throw new Error('Breadcrumbs must set string props "pathname"');
   }
@@ -59,7 +63,7 @@ const Breadcrumbs = ({
       const subLastIndex = names.length - 1;
       return (BreadcrumbItems = BreadcrumbItems.concat(
         names.map((name, subIndex) => (
-          <BreadcrumbItem key={`${index}${subIndex}`} className={itemClass} style={itemStyle}>
+          <BreadcrumbItem {...itemProps} key={`${index}${subIndex}`}>
             {subLastIndex !== subIndex || isExact ? name : <Link to={path}>{name}</Link>}
           </BreadcrumbItem>
         ))
@@ -67,14 +71,13 @@ const Breadcrumbs = ({
     }
     const name = isExact ? names : <Link to={path}>{names}</Link>;
     return (BreadcrumbItems = BreadcrumbItems.concat(
-      <BreadcrumbItem key={index} className={itemClass} style={itemStyle}>
+      <BreadcrumbItem {...itemProps} key={index}>
         {name}
       </BreadcrumbItem>
     ));
   });
-  console.log(BreadcrumbItems.length);
   return (
-    <Breadcrumb className={className} style={style}>
+    <Breadcrumb {...containerProps}>
       {BreadcrumbItems}
     </Breadcrumb>
   );

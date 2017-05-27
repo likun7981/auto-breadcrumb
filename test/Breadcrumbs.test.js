@@ -2,7 +2,7 @@ import test from 'tape';
 import breadcrumbConfig from '../src';
 import shallow from 'react-test-renderer/shallow';
 import React from 'react';
-import { MemoryRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Breadcrumbs = breadcrumbConfig({
   dynamicRoutesMap: {
