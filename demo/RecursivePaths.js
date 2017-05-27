@@ -8,6 +8,9 @@ const Breadcrumbs = BreadcrumbConfig({
     '/:idd/:id': ['people..', ({ id, idd }) => `${idd},${id}`],
     '/:iddd/:idd/:id': ({ iddd, idd, id }) => `people...${iddd},${idd},${id}`,
   },
+  containerProps: {
+    style: { listStyle: 'none' },
+  },
 });
 const PEEPS = [
   { id: 0, name: 'Michelle', friends: [1, 2, 3] },

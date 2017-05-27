@@ -7,15 +7,6 @@
 [libs]
 
 [options]
-module.name_mapper='\$utils' -> '<PROJECT_ROOT>/src/utils'
-module.name_mapper='\$flow-typed' -> '<PROJECT_ROOT>/flow-typed'
-module.name_mapper='\$components' -> '<PROJECT_ROOT>/src/components'
-module.name_mapper='\$styles' -> '<PROJECT_ROOT>/src/styles'
-module.name_mapper='\$containers' -> '<PROJECT_ROOT>/src/containers'
-module.name_mapper='\$reducers' -> '<PROJECT_ROOT>/src/reducers'
-module.name_mapper='\$layouts' -> '<PROJECT_ROOT>/src/layouts'
-module.name_mapper='\$images' -> '<PROJECT_ROOT>/src/assets/images'
-module.name_mapper='\$fonts' -> '<PROJECT_ROOT>/src/assets/fonts'
 module.file_ext=.css
 module.file_ext=.js
 module.file_ext=.less
