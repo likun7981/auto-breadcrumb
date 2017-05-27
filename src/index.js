@@ -37,7 +37,14 @@ const Breadcrumbs = ({
   itemProps?: Object,
   Breadcrumb?: any,
   BreadcrumbItem?: any
-}) => ({ pathname }: props) => {
+}) => ({ pathname, className, style, itemClass, itemStyle }: props) => {
+  if (className || style || itemClass || itemStyle) {
+    console.warn(
+      'The version v1.0.0 has remove "className,style,itemClass,itemStyel", ' +
+        'We will remove them next version,' +
+        ' please use "containerProps" and "itemProps" config to replace them'
+    );
+  }
   if (typeof pathname !== 'string') {
     throw new Error('Breadcrumbs must set string props "pathname"');
   }
@@ -63,7 +70,12 @@ const Breadcrumbs = ({
       const subLastIndex = names.length - 1;
       return (BreadcrumbItems = BreadcrumbItems.concat(
         names.map((name, subIndex) => (
-          <BreadcrumbItem {...itemProps} key={`${index}${subIndex}`}>
+          <BreadcrumbItem
+            style={itemStyle || {}}
+            className={itemClass || ''}
+            {...itemProps}
+            key={`${index}${subIndex}`}
+          >
             {subLastIndex !== subIndex || isExact ? name : <Link to={path}>{name}</Link>}
           </BreadcrumbItem>
         ))
@@ -71,13 +83,18 @@ const Breadcrumbs = ({
     }
     const name = isExact ? names : <Link to={path}>{names}</Link>;
     return (BreadcrumbItems = BreadcrumbItems.concat(
-      <BreadcrumbItem {...itemProps} key={index}>
+      <BreadcrumbItem
+        style={itemStyle || {}}
+        className={itemClass || ''}
+        {...itemProps}
+        key={index}
+      >
         {name}
       </BreadcrumbItem>
     ));
   });
   return (
-    <Breadcrumb {...containerProps}>
+    <Breadcrumb style={style || {}} className={className || ''} {...containerProps}>
       {BreadcrumbItems}
     </Breadcrumb>
   );
