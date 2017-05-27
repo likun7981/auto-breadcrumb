@@ -11,6 +11,9 @@ const Breadcrumbs = BreadcrumbConfig({
   containerProps: {
     style: { listStyle: 'none' },
   },
+  itemProps: {
+    style: { display: 'inline-block', marginRight: '15px' },
+  },
 });
 const PEEPS = [
   { id: 0, name: 'Michelle', friends: [1, 2, 3] },
