@@ -37,15 +37,14 @@ dynamicRoutesMap | Object | `{}` | With params routes map to breadcrumb name
 homePath | String | `/` | The index path
 Breadcrumb | ReactComponent | `ul` | The Breadcrumb container
 BreadcrumbItem | ReactComponent | `li` | The Breadcrumb Item 
+containerProps | Object | `{}` | The container props
+itemProps | Object | `{}` | The item props
   
 2. The `Breadcrumbs` Component props
 
 propsName | type | isRequire | default | description
 ----------|------|-----------|---------|------------
- pathname | String | Y |  | The full location path
- className | String | N | `Empty` |The container className
- style | Object | N | `{}`|The container style
- itemClass | String | N | `Empty` |The item className
- itemStyle | Object | N | `{}`|The item style
+ pathname | String | Y |  | The full location path  
+ 
 # License 
 MIT
