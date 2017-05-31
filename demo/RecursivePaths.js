@@ -47,7 +47,7 @@ const RecursiveExample = () => (
                   auto-breadcrumb
                 </a>
                 {' '}
-                with any UI Frameword
+                with any UI Framework
               </div>
             </div>
           );
