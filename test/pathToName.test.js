@@ -24,6 +24,11 @@ test('findNamePath static routes', assert => {
     '404',
     'not find will use path name 404'
   );
+  assert.equal(
+    findNameByPath('/404', { staticRoutesMap, notFound:'notFound' }),
+    'notFound',
+    'if set "notFound" Props, the not find will use the special name'
+  );
   assert.end();
 });
 
@@ -48,7 +53,7 @@ test('findNamePath dynamic routes', assert => {
   assert.deepEqual(
     findNameByPath('/array/function/33', { dynamicRoutesMap }),
     ['string33', 'function33'],
-    'mixed array(function, string) with param'
+    'mixed array[function, string] with param'
   );
   assert.end();
 });

@@ -1,7 +1,8 @@
-// @flow
+/* @flow */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import findNameByPath from './pathToName';
+import type { ConfigType } from '$define';
 
 type props = {
   pathname: string,
@@ -18,29 +19,18 @@ const Breadcrumbs = ({
   itemProps = {},
   Breadcrumb = 'ul',
   BreadcrumbItem = 'li',
-}: {
-  /**
-   * No param
-   */
-  staticRoutesMap?: { [key: string]: string | Array<string> },
-  /**
-   * With param
-   */
-  dynamicRoutesMap?: {
-    [key: string]:
-      | string
-      | ((Object) => string)
-      | Array<string | ((Object) => string | Array<string>)>
-  },
-  homePath?: string,
-  containerProps?: Object,
-  itemProps?: Object,
-  Breadcrumb?: any,
-  BreadcrumbItem?: any
-}) => ({ pathname, className, style, itemClass, itemStyle }: props) => {
+  LinkComponent = RouterLink,
+  notFound,
+}: ConfigType) => ({
+  pathname,
+  className,
+  style,
+  itemClass,
+  itemStyle,
+}: props) => {
   if (className || style || itemClass || itemStyle) {
     console.warn(
-      'The version v1.0.0 has remove "className,style,itemClass,itemStyel", ' +
+      'The version v1.0.0 has remove "className,style,itemClass,itemStyle", ' +
         'We will remove them next version,' +
         ' please use "containerProps" and "itemProps" config to replace them'
     );
@@ -64,6 +54,7 @@ const Breadcrumbs = ({
     const names = findNameByPath(path, {
       staticRoutesMap,
       dynamicRoutesMap,
+      notFound,
     });
     const isExact = lastIndex === index;
     if (Array.isArray(names)) {
@@ -76,12 +67,16 @@ const Breadcrumbs = ({
             {...itemProps}
             key={`${index}${subIndex}`}
           >
-            {subLastIndex !== subIndex || isExact ? name : <Link to={path}>{name}</Link>}
+            {subLastIndex !== subIndex || isExact
+              ? name
+              : <LinkComponent to={path}>{name}</LinkComponent>}
           </BreadcrumbItem>
         ))
       ));
     }
-    const name = isExact ? names : <Link to={path}>{names}</Link>;
+    const name = isExact
+      ? names
+      : <LinkComponent to={path}>{names}</LinkComponent>;
     return (BreadcrumbItems = BreadcrumbItems.concat(
       <BreadcrumbItem
         style={itemStyle || {}}
@@ -94,7 +89,11 @@ const Breadcrumbs = ({
     ));
   });
   return (
-    <Breadcrumb style={style || {}} className={className || ''} {...containerProps}>
+    <Breadcrumb
+      style={style || {}}
+      className={className || ''}
+      {...containerProps}
+    >
       {BreadcrumbItems}
     </Breadcrumb>
   );

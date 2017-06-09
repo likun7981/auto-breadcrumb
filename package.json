@@ -1,13 +1,14 @@
 {
   "name": "auto-breadcrumb",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Auto generate breadcrumb for React-Router 4.xx",
   "main": "lib/index.js",
   "scripts": {
     "start": "cross-env DEBUG=app:* node build/www",
     "build-demo": "cross-env NODE_ENV=production DEBUG=app:* node build/compile",
     "build": "babel src --out-dir lib",
-    "test": "babel-tape-runner test/*"
+    "test": "babel-tape-runner test/*",
+    "flow:check": "flow check --traces 10"
   },
   "repository": {
     "type": "git",

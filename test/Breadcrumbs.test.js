@@ -2,9 +2,9 @@ import test from 'tape';
 import breadcrumbConfig from '../src';
 import shallow from 'react-test-renderer/shallow';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-const Breadcrumbs = breadcrumbConfig({
+const customConfig = {
   dynamicRoutesMap: {
     '/:id': 'people.{{id}}',
     '/:idd/:id': ['people..', ({ id, idd }) => `${idd},${id}`],
@@ -18,7 +18,20 @@ const Breadcrumbs = breadcrumbConfig({
   itemProps: {
     className: 'item',
   },
-});
+};
+
+const CustomLink = withRouter(class CustomLink extends React.Component {
+  static displayName = 'CustomLink';
+  onClick = () => {
+    const { to, history } = this.props;
+    // you can do some special thing here
+    history.push(to);
+  }
+  render() {
+    return <a onClick={this.onClick}>{this.props.children}</a>;
+  }
+})
+const Breadcrumbs = breadcrumbConfig(customConfig);
 
 const ReactTestRenderer = shallow.createRenderer();
 test('staticRoutesMap Breadcrumbs and component type', assert => {
@@ -59,7 +72,6 @@ test('dynamicRoutesMap Breadcrumbs', assert => {
 test('containerProps and itemProps', assert => {
   ReactTestRenderer.render(<Breadcrumbs pathname="/1/2/3" />);
   const resp = ReactTestRenderer.getRenderOutput();
-  console.log(resp);
   assert.deepEqual(
     resp.props.style,
     { listStyle: 'none' },
@@ -72,3 +84,17 @@ test('containerProps and itemProps', assert => {
   );
   assert.end();
 });
+test('custom Link component and notFound property', assert => {
+  const assignConfig = Object.assign({}, customConfig, { notFound: '404NotFound', LinkComponent: CustomLink });
+  const Breadcrumbs2 = breadcrumbConfig(assignConfig);
+  ReactTestRenderer.render(<Breadcrumbs2 pathname="/1/2/3/4" />);
+  const resp = ReactTestRenderer.getRenderOutput();
+  const items = resp.props.children;
+  assert.deepEqual(
+    items[0].props.children.type.WrappedComponent.displayName,
+    'CustomLink',
+    "the type is the CustomLink"
+  );
+  assert.equal(items[5].props.children, '404NotFound', 'speacial name "404NotFound"');
+  assert.end();
+})

@@ -39,6 +39,8 @@ Breadcrumb | ReactComponent | `ul` | The Breadcrumb container
 BreadcrumbItem | ReactComponent | `li` | The Breadcrumb Item 
 containerProps | Object | `{}` | The container props
 itemProps | Object | `{}` | The item props
+LinkComponent | ReactComponent | `{}` | The Custom LinkComponent
+notFound | string |  | The default notFound name, if not set,it will be the pathname
   
 2. The `Breadcrumbs` Component props
 

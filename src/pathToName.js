@@ -1,5 +1,6 @@
 // @flow
 import { matchPath } from 'react-router-dom';
+import type { StaticRoutesMapType, DynamicRoutesMapType } from '$define';
 const paramRegx = /{{([a-zA-Z_$][a-zA-Z0-9_$]*)}}/;
 export const replaceParams = (names: string, params: Object) => {
   let match = paramRegx.exec(names);
@@ -14,20 +15,11 @@ export default (
   {
     staticRoutesMap = {},
     dynamicRoutesMap = {},
+    notFound,
   }: {
-    /**
-     * No param
-     */
-    staticRoutesMap: { [key: string]: string | Array<string> },
-    /**
-     * With param
-     */
-    dynamicRoutesMap: {
-      [key: string]:
-        | string
-        | ((Object) => string)
-        | Array<string | ((Object) => string | Array<string>)>
-    }
+    staticRoutesMap: StaticRoutesMapType,
+    dynamicRoutesMap: DynamicRoutesMapType,
+    notFound?:?string,
   }
 ) => {
   let names = staticRoutesMap[url];
@@ -43,7 +35,10 @@ export default (
         names = dynamicRoutesMap[pathname];
         if (Array.isArray(names)) {
           names = names.map(
-            name => (typeof name === 'function' ? name(params) : replaceParams(name, params))
+            name =>
+              (typeof name === 'function'
+                ? name(params)
+                : replaceParams(name, params))
           );
         } else if (typeof names === 'function') {
           names = names(params);
@@ -55,6 +50,7 @@ export default (
     });
   }
   if (!names) {
+    if (notFound) return notFound;
     const urls = url.split('/');
     return urls[urls.length - 1];
   }
