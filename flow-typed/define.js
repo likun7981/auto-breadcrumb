@@ -17,9 +17,10 @@ declare module '$define' {
     dynamicRoutesMap?: DynamicRoutesMapType,
     homePath?: string,
     containerProps?: Object,
-    itemProps?: any,
-    BreadcrumbItem: any,
-    LinkComponent: any,
+    itemProps?: Object,
+    Breadcrumb?: any,
+    BreadcrumbItem?: any,
+    LinkComponent?: any,
     notFound?: ?string
   };
 }
