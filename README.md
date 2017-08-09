@@ -30,7 +30,7 @@ render(<Breadcrumbs pathname={location.pathname} />, MOUNT_DOM);
 ## Api
 1. The `config`
 
-keyName | type | default | descrition
+keyName | type | default | description
 --------|------|---------|-----------
 staticRoutesMap | Object | `{'/':'Home'}` | No params routes map to breadcrumb name
 dynamicRoutesMap | Object | `{}` | With params routes map to breadcrumb name
