@@ -56,12 +56,12 @@ test('dynamicRoutesMap Breadcrumbs', assert => {
   const items = resp.props.children;
   ReactTestRenderer.render(<Breadcrumbs pathname="/1/2/3" />);
   assert.equal(items.length, 5, 'five items');
-  assert.deepEqual(items[0].props.children.type, Link, "the type is Link, because it is not the last item");
+  assert.deepEqual(items[0].props.children.type, Link, 'the type is Link, because it is not the last item');
   assert.equal(items[1].props.children.props.children, 'people.1', 'replaced param');
   assert.notDeepEqual(
     items[2].props.children.type,
     Link,
-    "the type is not Link, because it is not the array names last item"
+    'the type is not Link, because it is not the array names last item'
   );
   assert.deepEqual(items[3].props.children.type, Link, 'the type is Link, because it is the array names last item');
   assert.equal(items[4].props.children, 'people...1,2,3', 'function return string');
@@ -74,13 +74,15 @@ test('containerProps and itemProps', assert => {
   assert.equal(resp.props.children[0].props.className, 'item', 'item has className props equal "item"');
   assert.end();
 });
-test('custom Link component and notFound property', assert => {
+test('use itemRender to custom Link component and notFound property', assert => {
   const assignConfig = Object.assign({}, customConfig, {
-    notFound: '404NotFound',
+    notFound: '404NotFoundCustom',
     itemRender: (name, path) =>
-      <CustomLink to={path}>
-        {name}
-      </CustomLink>,
+      path
+        ? <CustomLink to={path}>
+            {name}
+          </CustomLink>
+        : name,
   });
   const Breadcrumbs2 = breadcrumbConfig(assignConfig);
   ReactTestRenderer.render(<Breadcrumbs2 pathname="/1/2/3/4/5" />);
@@ -91,7 +93,7 @@ test('custom Link component and notFound property', assert => {
     'CustomLink',
     'the type is the CustomLink'
   );
-  assert.equal(items[5].props.children, '404NotFound', 'speacial name "404NotFound"');
+  assert.equal(items[5].props.children, '404NotFoundCustom', 'speacial name "404NotFoundCustom"');
   assert.equal(items[6], undefined, 'not render the second NotFound');
   assert.end();
 });

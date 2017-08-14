@@ -9,9 +9,11 @@ type props = {
 };
 
 const defaultItemRender = (name, path) =>
-  <Link to={path}>
-    {name}
-  </Link>;
+  path
+    ? <Link to={path}>
+        {name}
+      </Link>
+    : name;
 
 const Breadcrumbs = ({
   staticRoutesMap = {},
@@ -53,12 +55,12 @@ const Breadcrumbs = ({
       BreadcrumbItems = BreadcrumbItems.concat(
         names.map((name, subIndex) =>
           <BreadcrumbItem {...itemProps} key={`${index}.${subIndex}`}>
-            {subLastIndex !== subIndex || isExact ? name : itemRender(name, path)}
+            {subLastIndex !== subIndex || isExact ? itemRender(name) : itemRender(name, path)}
           </BreadcrumbItem>
         )
       );
     } else {
-      const name = isExact ? names : itemRender(names, path);
+      const name = isExact ? itemRender(names) : itemRender(names, path);
       BreadcrumbItems = BreadcrumbItems.concat(
         <BreadcrumbItem {...itemProps} key={index}>
           {name}

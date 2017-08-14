@@ -41,7 +41,7 @@ containerProps | Object | `{}` | The container props
 itemProps | Object | `{}` | The item props
 ~~LinkComponent~~ | ~~ReactComponent~~ | ~~Link~~ | ~~The Custom LinkComponent~~ use itemRender
 notFound | string | `404 NotFound` | The custom `notFound` name
-itemRender | (name, path) => ReactNode | - | You can custom everything for `item` display
+itemRender | (name, path?) => ReactNode | - | You can custom everything for `item` display, if the param `path` is not given, you should render a text node(not clickable) 
   
 2. The `Breadcrumbs` Component props
 

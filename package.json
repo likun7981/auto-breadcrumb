@@ -69,5 +69,6 @@
       "npm test",
       "git add"
     ]
-  }
+  },
+  "dependencies": {}
 }

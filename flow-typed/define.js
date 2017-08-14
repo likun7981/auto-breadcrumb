@@ -18,7 +18,7 @@ declare module '$define' {
     Breadcrumb?: any,
     BreadcrumbItem?: any,
     LinkComponent?: any,
-    itemRender?: (name, path) => any,
+    itemRender?: (name: string, path?: string) => any,
     notFound?: string
   };
 }
