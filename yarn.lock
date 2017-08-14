@@ -252,9 +252,9 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "http://registry.npm.taobao.org/asynckit/download/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
-auto-breadcrumb@^1.2.1:
-  version "1.2.1"
-  resolved "http://registry.npm.taobao.org/auto-breadcrumb/download/auto-breadcrumb-1.2.1.tgz#e1a142aca304cfcbbdce1986cf9878a461560c06"
+auto-breadcrumb@^1.2.2:
+  version "1.2.2"
+  resolved "http://registry.npm.taobao.org/auto-breadcrumb/download/auto-breadcrumb-1.2.2.tgz#15d6cdf7db6dbb7e3450b55a9fad502d252c8351"
 
 autoprefixer@^6.3.1:
   version "6.7.7"
