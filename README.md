@@ -16,7 +16,7 @@ Use npm
 $ npm install auto-breadcrumb --save
 ```
 ## Example
-1. [config example](https://github.com/likun7981/auto-breadcrumb/blob/gh-pages/demo/RecursivePaths.js#L6-L20)
+1. [config example](https://github.com/likun7981/auto-breadcrumb/blob/gh-pages/demo/RecursivePaths.js#L6-L26)
 2. [online demo](https://likun7981.github.io/auto-breadcrumb/)
 
 ## Usage
@@ -39,7 +39,7 @@ Breadcrumb | ReactComponent | `ul` | The Breadcrumb container
 BreadcrumbItem | ReactComponent | `li` | The Breadcrumb Item 
 containerProps | Object | `{}` | The container props
 itemProps | Object | `{}` | The item props
-~~LinkComponent~~ | ~~ReactComponent~~ | ~~Link~~ | ~~The Custom LinkComponent~~ use itemRender
+~~LinkComponent~~ | ~~ReactComponent~~ | ~~Link~~ | ~~The Custom LinkComponent~~ use `itemRender`
 notFound | string | `404 NotFound` | The custom `notFound` name
 itemRender | (name, path?) => ReactNode | - | You can custom everything for `item` display, if the param `path` is not given, you should render a text node(not clickable) 
   
@@ -47,7 +47,7 @@ itemRender | (name, path?) => ReactNode | - | You can custom everything for `ite
 
 propsName | type | isRequire | default | description
 ----------|------|-----------|---------|------------
- pathname | String | Y |  | The full location path  
+ pathname | String | Y | - | The full location path  
  
 # License 
 MIT
