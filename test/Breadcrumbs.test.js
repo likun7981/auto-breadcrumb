@@ -59,7 +59,6 @@ test('dynamicRoutesMap Breadcrumbs', assert => {
 test('containerProps and itemProps', assert => {
   ReactTestRenderer.render(<Breadcrumbs pathname="/1/2/3" />);
   const resp = ReactTestRenderer.getRenderOutput();
-  console.log(resp);
   assert.deepEqual(
     resp.props.style,
     { listStyle: 'none' },
