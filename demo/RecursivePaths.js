@@ -53,8 +53,9 @@ const RecursiveExample = () =>
                 You can use{' '}
                 <a target="__blank" href="https://github.com/likun7981/auto-breadcrumb">
                   auto-breadcrumb
-                </a>{' '}
-                with any UI Frameword
+                </a>
+                {' '}
+                with any UI Framework
               </div>
             </div>
           );
