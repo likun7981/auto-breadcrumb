@@ -18,9 +18,11 @@ const Breadcrumbs = BreadcrumbConfig({
     separator: '>',
   },
   itemRender: (name, path) =>
-    <Link to={path}>
-      {name} (itemRender Custom)
-    </Link>,
+    path
+      ? <Link to={path}>
+          {name} (itemRender Custom)
+        </Link>
+      : `${name}(itemRender Custom Text Node)`,
 });
 const PEEPS = [
   { id: 0, name: 'Michelle', friends: [1, 2, 3] },
