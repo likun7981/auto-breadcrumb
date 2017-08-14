@@ -16,7 +16,7 @@ Use npm
 $ npm install auto-breadcrumb --save
 ```
 ## Example
-1. [config example](https://github.com/likun7981/auto-breadcrumb/blob/master/demo/RecursivePaths.js#L6-L10)
+1. [config example](https://github.com/likun7981/auto-breadcrumb/blob/gh-pages/demo/RecursivePaths.js#L6-L20)
 2. [online demo](https://likun7981.github.io/auto-breadcrumb/)
 
 ## Usage
