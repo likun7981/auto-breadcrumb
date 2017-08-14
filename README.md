@@ -30,7 +30,7 @@ render(<Breadcrumbs pathname={location.pathname} />, MOUNT_DOM);
 ## Api
 1. The `config`
 
-keyName | type | default | descrition
+keyName | type | default | description
 --------|------|---------|-----------
 staticRoutesMap | Object | `{'/':'Home'}` | No params routes map to breadcrumb name
 dynamicRoutesMap | Object | `{}` | With params routes map to breadcrumb name
@@ -39,6 +39,9 @@ Breadcrumb | ReactComponent | `ul` | The Breadcrumb container
 BreadcrumbItem | ReactComponent | `li` | The Breadcrumb Item 
 containerProps | Object | `{}` | The container props
 itemProps | Object | `{}` | The item props
+~~LinkComponent~~ | ~~ReactComponent~~ | ~~Link~~ | ~~The Custom LinkComponent~~ use itemRender
+notFound | string | `404 NotFound` | The custom `notFound` name
+itemRender | (name, path) => ReactNode | - | You can custom everything for `item` display
   
 2. The `Breadcrumbs` Component props
 

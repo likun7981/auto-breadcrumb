@@ -1,15 +1,18 @@
-// @flow
+/* @flow */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import findNameByPath from './pathToName';
+import type { ConfigType } from '$define';
 
 type props = {
-  pathname: string,
-  className?: string,
-  itemClass?: string,
-  style?: Object,
-  itemStyle?: Object
+  pathname: string
 };
+
+const defaultItemRender = (name, path) =>
+  <Link to={path}>
+    {name}
+  </Link>;
+
 const Breadcrumbs = ({
   staticRoutesMap = {},
   dynamicRoutesMap = {},
@@ -18,33 +21,9 @@ const Breadcrumbs = ({
   itemProps = {},
   Breadcrumb = 'ul',
   BreadcrumbItem = 'li',
-}: {
-  /**
-   * No param
-   */
-  staticRoutesMap?: { [key: string]: string | Array<string> },
-  /**
-   * With param
-   */
-  dynamicRoutesMap?: {
-    [key: string]:
-      | string
-      | ((Object) => string)
-      | Array<string | ((Object) => string | Array<string>)>
-  },
-  homePath?: string,
-  containerProps?: Object,
-  itemProps?: Object,
-  Breadcrumb?: any,
-  BreadcrumbItem?: any
-}) => ({ pathname, className, style, itemClass, itemStyle }: props) => {
-  if (className || style || itemClass || itemStyle) {
-    console.warn(
-      'The version v1.0.0 has remove "className,style,itemClass,itemStyel", ' +
-        'We will remove them next version,' +
-        ' please use "containerProps" and "itemProps" config to replace them'
-    );
-  }
+  itemRender = defaultItemRender,
+  notFound = '404 NotFound',
+}: ConfigType) => ({ pathname }: props) => {
   if (typeof pathname !== 'string') {
     throw new Error('Breadcrumbs must set string props "pathname"');
   }
@@ -60,41 +39,37 @@ const Breadcrumbs = ({
   }
   const lastIndex = paths.length - 1;
   let BreadcrumbItems = [];
-  paths.forEach((path, index) => {
-    const names = findNameByPath(path, {
+  paths.every((path, index) => {
+    const hasNames = findNameByPath(path, {
       staticRoutesMap,
       dynamicRoutesMap,
     });
-    const isExact = lastIndex === index;
+
+    const names = hasNames || notFound;
+
+    const isExact = lastIndex === index || !hasNames;
     if (Array.isArray(names)) {
       const subLastIndex = names.length - 1;
-      return (BreadcrumbItems = BreadcrumbItems.concat(
-        names.map((name, subIndex) => (
-          <BreadcrumbItem
-            style={itemStyle || {}}
-            className={itemClass || ''}
-            {...itemProps}
-            key={`${index}${subIndex}`}
-          >
-            {subLastIndex !== subIndex || isExact ? name : <Link to={path}>{name}</Link>}
+      BreadcrumbItems = BreadcrumbItems.concat(
+        names.map((name, subIndex) =>
+          <BreadcrumbItem {...itemProps} key={`${index}.${subIndex}`}>
+            {subLastIndex !== subIndex || isExact ? name : itemRender(name, path)}
           </BreadcrumbItem>
-        ))
-      ));
+        )
+      );
+    } else {
+      const name = isExact ? names : itemRender(names, path);
+      BreadcrumbItems = BreadcrumbItems.concat(
+        <BreadcrumbItem {...itemProps} key={index}>
+          {name}
+        </BreadcrumbItem>
+      );
     }
-    const name = isExact ? names : <Link to={path}>{names}</Link>;
-    return (BreadcrumbItems = BreadcrumbItems.concat(
-      <BreadcrumbItem
-        style={itemStyle || {}}
-        className={itemClass || ''}
-        {...itemProps}
-        key={index}
-      >
-        {name}
-      </BreadcrumbItem>
-    ));
+
+    return hasNames;
   });
   return (
-    <Breadcrumb style={style || {}} className={className || ''} {...containerProps}>
+    <Breadcrumb {...containerProps}>
       {BreadcrumbItems}
     </Breadcrumb>
   );

@@ -21,7 +21,7 @@ test('findNamePath static routes', assert => {
   );
   assert.equal(
     findNameByPath('/404', { staticRoutesMap }),
-    '404',
+    undefined,
     'not find will use path name 404'
   );
   assert.end();
@@ -48,7 +48,7 @@ test('findNamePath dynamic routes', assert => {
   assert.deepEqual(
     findNameByPath('/array/function/33', { dynamicRoutesMap }),
     ['string33', 'function33'],
-    'mixed array(function, string) with param'
+    'mixed array[function, string] with param'
   );
   assert.end();
 });
