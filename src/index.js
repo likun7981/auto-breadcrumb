@@ -47,7 +47,7 @@ const Breadcrumbs = ({
       dynamicRoutesMap,
     });
 
-    const names = hasNames || notFound;
+    const names = hasNames;
 
     const isExact = lastIndex === index || !hasNames;
     if (Array.isArray(names)) {
@@ -60,7 +60,7 @@ const Breadcrumbs = ({
         )
       );
     } else {
-      const name = isExact ? itemRender(names) : itemRender(names, path);
+      const name = isExact ? (names && itemRender(names)) || notFound : itemRender(names, path);
       BreadcrumbItems = BreadcrumbItems.concat(
         <BreadcrumbItem {...itemProps} key={index}>
           {name}

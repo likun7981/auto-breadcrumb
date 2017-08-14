@@ -82,7 +82,7 @@ test('use itemRender to custom Link component and notFound property', assert => 
         ? <CustomLink to={path}>
             {name}
           </CustomLink>
-        : name,
+        : `${name}~~`,
   });
   const Breadcrumbs2 = breadcrumbConfig(assignConfig);
   ReactTestRenderer.render(<Breadcrumbs2 pathname="/1/2/3/4/5" />);
@@ -94,6 +94,7 @@ test('use itemRender to custom Link component and notFound property', assert => 
     'the type is the CustomLink'
   );
   assert.equal(items[5].props.children, '404NotFoundCustom', 'speacial name "404NotFoundCustom"');
+  assert.equal(items[2].props.children, 'people..~~', 'itemRender text node');
   assert.equal(items[6], undefined, 'not render the second NotFound');
   assert.end();
 });
