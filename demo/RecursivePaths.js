@@ -17,6 +17,10 @@ const Breadcrumbs = BreadcrumbConfig({
   containerProps: {
     separator: '>',
   },
+  itemRender: (name, path) =>
+    <Link to={path}>
+      {name} (itemRender Custom)
+    </Link>,
 });
 const PEEPS = [
   { id: 0, name: 'Michelle', friends: [1, 2, 3] },
@@ -27,26 +31,27 @@ const PEEPS = [
 
 const find = (id): Object => PEEPS.find(p => p.id == id) || {};
 
-const RecursiveExample = () => (
+const RecursiveExample = () =>
   <Router>
     <div style={{ padding: '20px' }}>
       <Route
         render={({ location }) => {
           return (
             <div>
-              Use <a target="__blank" href="https://github.com/likun7981/auto-breadcrumb">
+              Use{' '}
+              <a target="__blank" href="https://github.com/likun7981/auto-breadcrumb">
                 auto-breadcrumb
-              </a> with
-              {' '}
-              <a target="__blank" href="https://ant.design/docs/react/introduce">antd</a>
+              </a>{' '}
+              with{' '}
+              <a target="__blank" href="https://ant.design/docs/react/introduce">
+                antd
+              </a>
               <Breadcrumbs pathname={location.pathname} />
               <div style={{ background: '#f6f8fa', padding: '10px' }}>
-                You can use
-                {' '}
+                You can use{' '}
                 <a target="__blank" href="https://github.com/likun7981/auto-breadcrumb">
                   auto-breadcrumb
-                </a>
-                {' '}
+                </a>{' '}
                 with any UI Frameword
               </div>
             </div>
@@ -58,22 +63,23 @@ const RecursiveExample = () => (
       <br />
       <Person match={{ params: { id: 0 }, url: '' }} />
     </div>
-  </Router>
-);
+  </Router>;
 
 const Person = ({ match }) => {
   const person = find(match.params.id);
   return (
     <div>
-      <h3>{person.name}’s Friends</h3>
+      <h3>
+        {person.name}’s Friends
+      </h3>
       <ul>
-        {person.friends.map(id => (
+        {person.friends.map(id =>
           <li key={id}>
             <Link to={`${match.url}/${id}`}>
               {find(id).name}
             </Link>
           </li>
-        ))}
+        )}
       </ul>
       <Route path={`${match.url}/:id`} component={Person} />
     </div>

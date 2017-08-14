@@ -60,6 +60,6 @@
   },
   "dependencies": {
     "antd": "^2.10.2",
-    "auto-breadcrumb": "^1.0.0"
+    "auto-breadcrumb": "^1.2.0"
   }
 }
