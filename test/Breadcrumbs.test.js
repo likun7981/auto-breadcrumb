@@ -29,11 +29,7 @@ const CustomLink = withRouter(
       history.push(to);
     };
     render() {
-      return (
-        <a onClick={this.onClick}>
-          {this.props.children}
-        </a>
-      );
+      return <a onClick={this.onClick}>{this.props.children}</a>;
     }
   }
 );
@@ -41,6 +37,10 @@ const Breadcrumbs = breadcrumbConfig(customConfig);
 
 const ReactTestRenderer = shallow.createRenderer();
 test('staticRoutesMap Breadcrumbs and component type', assert => {
+  const assignConfig = Object.assign({}, customConfig, {
+    isDisplayInHome: true,
+  });
+  const Breadcrumbs = breadcrumbConfig(assignConfig);
   ReactTestRenderer.render(<Breadcrumbs pathname="/" />);
   const resp = ReactTestRenderer.getRenderOutput();
   const items = resp.props.children;
@@ -77,12 +77,7 @@ test('containerProps and itemProps', assert => {
 test('use itemRender to custom Link component and notFound property', assert => {
   const assignConfig = Object.assign({}, customConfig, {
     notFound: '404NotFoundCustom',
-    itemRender: (name, path) =>
-      path
-        ? <CustomLink to={path}>
-            {name}
-          </CustomLink>
-        : `${name}~~`,
+    itemRender: (name, path) => (path ? <CustomLink to={path}>{name}</CustomLink> : `${name}~~`),
   });
   const Breadcrumbs2 = breadcrumbConfig(assignConfig);
   ReactTestRenderer.render(<Breadcrumbs2 pathname="/1/2/3/4/5" />);
@@ -96,5 +91,18 @@ test('use itemRender to custom Link component and notFound property', assert => 
   assert.equal(items[5].props.children, '404NotFoundCustom', 'speacial name "404NotFoundCustom"');
   assert.equal(items[2].props.children, 'people..~~', 'itemRender text node');
   assert.equal(items[6], undefined, 'not render the second NotFound');
+  assert.end();
+});
+test('is the Breadcrumb displayed in home page', assert => {
+  ReactTestRenderer.render(<Breadcrumbs pathname="/" />);
+  const resp = ReactTestRenderer.getRenderOutput();
+  assert.equal(resp, null, 'default , the Breadcrumb is not displayed in home page');
+  const assignConfig = Object.assign({}, customConfig, {
+    isDisplayInHome: true,
+  });
+  const BreadcrumbsShowInHome = breadcrumbConfig(assignConfig);
+  ReactTestRenderer.render(<BreadcrumbsShowInHome pathname="/" />);
+  const resp2 = ReactTestRenderer.getRenderOutput();
+  assert.notEqual(resp2, null, 'set isShowInHome = true, the Breadcrumb is displayed in home page');
   assert.end();
 });

@@ -42,6 +42,7 @@ itemProps | Object | `{}` | The item props
 ~~LinkComponent~~ | ~~ReactComponent~~ | ~~Link~~ | ~~The Custom LinkComponent~~ use `itemRender`
 notFound | string | `404 NotFound` | The custom `notFound` name
 itemRender | (name, path?) => ReactNode | - | You can custom everything for `item` display, if the param `path` is not given, you should render a text node(not clickable) 
+isDisplayInHome| boolean| false | Is the Breadcrumb displayed on the home page
   
 2. The `Breadcrumbs` Component props
 

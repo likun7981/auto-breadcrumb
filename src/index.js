@@ -8,12 +8,7 @@ type props = {
   pathname: string
 };
 
-const defaultItemRender = (name, path) =>
-  path
-    ? <Link to={path}>
-        {name}
-      </Link>
-    : name;
+const defaultItemRender = (name, path) => (path ? <Link to={path}>{name}</Link> : name);
 
 const Breadcrumbs = ({
   staticRoutesMap = {},
@@ -25,14 +20,18 @@ const Breadcrumbs = ({
   BreadcrumbItem = 'li',
   itemRender = defaultItemRender,
   notFound = '404 NotFound',
+  isDisplayInHome = false,
 }: ConfigType) => ({ pathname }: props) => {
   if (typeof pathname !== 'string') {
     throw new Error('Breadcrumbs must set string props "pathname"');
   }
+  if (!isDisplayInHome && pathname === homePath) {
+    return null;
+  }
   if (!staticRoutesMap[homePath]) {
     staticRoutesMap[homePath] = 'Home';
   }
-  const paths = homePath === '/' ? [homePath] : [];
+  let paths = homePath === '/' ? [homePath] : [];
   if (pathname !== homePath || homePath !== '/') {
     pathname.split('/').reduce((prev, curr, index) => {
       paths[index] = `${prev}/${curr}`;
@@ -53,11 +52,11 @@ const Breadcrumbs = ({
     if (Array.isArray(names)) {
       const subLastIndex = names.length - 1;
       BreadcrumbItems = BreadcrumbItems.concat(
-        names.map((name, subIndex) =>
+        names.map((name, subIndex) => (
           <BreadcrumbItem {...itemProps} key={`${index}.${subIndex}`}>
             {subLastIndex !== subIndex || isExact ? itemRender(name) : itemRender(name, path)}
           </BreadcrumbItem>
-        )
+        ))
       );
     } else {
       const name = isExact ? (names && itemRender(names)) || notFound : itemRender(names, path);
@@ -70,11 +69,7 @@ const Breadcrumbs = ({
 
     return hasNames;
   });
-  return (
-    <Breadcrumb {...containerProps}>
-      {BreadcrumbItems}
-    </Breadcrumb>
-  );
+  return <Breadcrumb {...containerProps}>{BreadcrumbItems}</Breadcrumb>;
 };
 
 export default Breadcrumbs;
